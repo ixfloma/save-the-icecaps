@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <div class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="#home" class="navbar-brand">Save the Icecaps</a>
+                <a href="#subscribe" class="nav-link float-end">Subscribe</a>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="forms mx-3 col-lg-6">
+                <form class="needs-validation" novalidate>
+                    <!-- full name -->
+                    <div class="my-3 mx-3">
+                        <label for="custName" class="form-label">Name</label>
+                        <div class="row g-2" id="custName">
+                            <div class="col-lg-6">
+                                <input type="text" id="firstName" class="form-control input-sm" placeholder="First name" aria-label="First name" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" id="lastName" class="form-control input-sm" placeholder="Last name" aria-label="Last name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- address -->
+                    <div class="my-3 mx-3">
+                        <label for="address" class="form-label">Address</label>
+                        <div class="row" id="address">
+                            <div class="col-lg-12">
+                                <input type="text" id="streetName" class="form-control input-lg" placeholder="Street Name" aria-label="Street Name" required>
+                            </div>
+                        </div>
+                        <div class="row g-2 my-1">
+                            <div class="col-lg-6">
+                                <input type="text" id="city" class="form-control input-lg" placeholder="City" aria-label="City" required>
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" id="zipCode" class="form-control input-lg" placeholder="Zip Code" aria-label="Zip Code" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- gender -->
+                    <div class="my-3 mx-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <div class="me-1" id="gender">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="gender" id="gender1" class="form-check-input" value="Male" required>
+                                <label for="gender" class="form-check-label">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="gender" id="gender2" class="form-check-input" value="Female" required>
+                                <label for="gender" class="form-check-label">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="gender" id="gender3" class="form-check-input" value="Other" required>
+                                <label for="gender" class="form-check-label">Other</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- date of birth -->
+                    <div class="my-3 mx-3">
+                        <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                        <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" required>
+                    </div>
+                    <!-- income level -->
+                    <div class="my-3 mx-3">
+                        <label for="incomeLevel" class="form-label">Income Level</label>
+                        <select id="incomeLevel" class="form-select" aria-label="Income Level" required>
+                            <option value="Low">One (Under 1000 €)</option>
+                            <option value="Middle" selected>Middle (> 1000 € or < 11000 €)</option>
+                            <option value="High">High (Above 11000 €)</option>
+                        </select>
+                    </div>
+                    <!-- donate value -->
+                    <div class="my-3 mx-3">
+                        <label for="donate" class="form-label">How Much do you want to donate</label>
+                        <div class="input-group">
+                            <div class="input-group-text">€</div>
+                            <input type="text" name="donate" id="donate" class="form-control" placeholder="Minimum € 1" aria-label="Donate Value" required>
+                        </div>
+                        <div class="form-check my-1">
+                            <input class="form-check-input" type="checkbox" value="0" id="subsOptOut">
+                            <label class="form-check-label" for="subsOptOut">
+                                I hate polar bears for the next month -- select this to opt out of a recurring donation
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" id="proceedButton" class="btn btn-primary mx-3" onclick="proceedToSubmit()">
+                        Proceed
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="proceedDonate" tabindex="-1" aria-labelledby="proceedDonateLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="confirm">Is all set?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="prevDonate"></p></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Not yet</button>
+                                    <button type="submit" class="btn btn-primary">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <!-- this is used for description or anything currently not displayed-->
+            <div class="mx-3 mt-5 col-lg-5">
+                <div style="display:none;" id="preview">
+                    <p>
+                        The polar bear (Ursus maritimus) is a hypercarnivorous bear whose native range lies largely within the Arctic Circle, encompassing the Arctic Ocean, its surrounding seas and surrounding land masses. It is the largest extant bear species, as well as the largest extant land carnivore.[5][6] A boar (adult male) weighs around 350–700 kg (770–1,540 lb),[7] while a sow (adult female) is about half that size. Although it is the sister species of the brown bear,[8] it has evolved to occupy a narrower ecological niche, with many body characteristics adapted for cold temperatures, for moving across snow, ice and open water, and for hunting seals, which make up most of its diet.[9] Although most polar bears are born on land, they spend most of their time on the sea ice. Their scientific name means "maritime bear" and derives from this fact. Polar bears hunt their preferred food of seals from the edge of sea ice, often living off fat reserves when no sea ice is present. Because of their dependence on the sea ice, polar bears are classified as marine mammals.[10]
+    
+    Because of expected habitat loss caused by climate change, the polar bear is classified as a vulnerable species. For decades, large-scale hunting raised international concern for the future of the species, but populations rebounded after controls and quotas began to take effect.[11] For thousands of years, the polar bear has been a key figure in the material, spiritual, and cultural life of circumpolar peoples, and polar bears remain important in their cultures. Historically, the polar bear has also been known as the "white bear".[12] It is sometimes referred to as the "nanook", based on the Inuit term nanuq.[13]
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script>
+            function proceedToSubmit(){
+                if(validate()){
+                    var date = new Date();
+                    // set the date to 1 because we want to deliver newsletter on the first week
+                    date.setDate(1);
+                    // set it the month to the next month
+                    date.setMonth(date.getMonth() + 1);
+                    // check if the day was Saturday or Sunday so we can move it to Monday
+                    if(date.getDay() == 0){
+                        date.setDate(date.getDate() + 1);
+                    }
+                    if(date.getDay() == 6){
+                        date.setDate(date.getDate() + 2);
+                    }
+                    // make it to string
+                    var nextDate = date.getDate().toString() + '-' + date.getMonth().toString() + '-' + date.getFullYear().toString();
+                    // get donate value
+                    var donating = $("#donate").val();
+                    // show the modal
+                    $("#proceedDonate").modal('show');
+                    // check if they're willing to subscribing newsletter or only one time pay
+                    if($("#subsOptOut").is(":checked")){
+                        $("#prevDonate").html(`You are donating for <b>${donating} €</b> <br> We'll ask for your donation of <b>${donating} €</b> with your newsletter on <b>${nextDate}</b>`);
+                    } else {
+                        $("#prevDonate").html(`You are donating for <b>${donating} €</b> only for this month because you only love polar bear this month`);
+                    }
+
+                }
+            }
+            // how do i validate only one times
+            function validate(){
+                var validation = true;
+
+                if($("#firstName").val() == ''){
+                    validation = false;
+                }
+                if($("#lastName").val() == ''){
+                    validation = false;
+                }
+                if($("#streetName").val() == ''){
+                    validation = false;
+                }
+                if($("#city").val() == ''){
+                    validation = false;
+                }
+                if($("#zipCode").val() == ''){
+                    validation = false;
+                }
+                if($("form [type=radio]:checked").val()== null){
+                    validation = false;
+                }
+                if($("#dateOfBirth").val() == ''){
+                    validation = false;
+                }
+                if($("#donate").val() == ''){
+                    validation = false;
+                }
+
+                return validation;
+            }
+            
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                document.getElementById("proceedButton").addEventListener('click', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+                    form.classList.add('was-validated');
+                }, false)
+                })
+            })()
+        </script>
+        <script src="./assets/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </body>
+</html>
