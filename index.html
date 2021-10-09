@@ -85,12 +85,26 @@
                         <div class="input-group">
                             <div class="input-group-text">€</div>
                             <input type="text" name="donate" id="donate" class="form-control" placeholder="Minimum € 1" aria-label="Donate Value" required>
+                            <div class="invalid-feedback" id="donateValueInvalid">
+
+                            </div>
                         </div>
                         <div class="form-check my-1">
                             <input class="form-check-input" type="checkbox" value="0" id="subsOptOut">
                             <label class="form-check-label" for="subsOptOut">
                                 I hate polar bears for the next month -- select this to opt out of a recurring donation
                             </label>
+                        </div>
+                    </div>
+                    <div class="my-3 mx-3">
+                        <div class="form-check my-1">
+                            <input class="form-check-input" type="checkbox" value="1" id="eula" checked required>
+                            <label class="form-check-label" for="eula">
+                                I agree to <a href="#">Terms and Conditions</a>
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree to our Terms and Conditions before proceed.
+                            </div>
                         </div>
                     </div>
                     <!-- Button trigger modal -->
@@ -188,6 +202,9 @@
                 if($("#donate").val() == ''){
                     validation = false;
                 }
+                if(!$("#eula :checked").val()){
+                    validation = false;
+                }
 
                 return validation;
             }
@@ -206,6 +223,7 @@
                     event.preventDefault()
                     event.stopPropagation()
                     }
+                    
                     form.classList.add('was-validated');
                 }, false)
                 })
